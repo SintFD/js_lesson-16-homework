@@ -38,6 +38,8 @@ const customer = {
 // console.log(customer.getBalance()); // 19750
 // console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"
 
+// --------------------------------------------------------------------------------------------
+
 // 2 - Задача
 // Создай класс Storage, который будет создавать объекты для управления
 // складом товаров. Класс ожидает только один аргумент — начальный массив
@@ -55,13 +57,80 @@ const customer = {
 // его после объявления класса для проверки корректности работы. В консоль
 // будут выведены результаты их работы. Пожалуйста, ничего там не меняй.
 
-class Storage {}
+class Storage {
+  #items = [];
+  constructor(arr) {
+    this.#items = arr;
+  }
 
-const storage = new Storage(["Nanitoids", "Prolonger", "Antigravitator"]);
-console.log(storage.getItems()); // ["Nanitoids","Prolonger", "Antigravitator"]
-storage.addItem("Droid");
-console.log(storage.getItems()); // ["Nanitoids","Prolonger", "Antigravitator", "Droid"]
-storage.removeItem("Prolonger");
-console.log(storage.getItems()); // ["Nanitoids","Antigravitator", "Droid"]
-storage.removeItem("Scaner");
-console.log(storage.getItems()); // ["Nanitoids","Antigravitator", "Droid"]
+  addItem(product) {
+    this.#items.push(product);
+  }
+
+  getItems() {
+    return this.#items;
+  }
+
+  removeItem(removeProduct) {
+    this.#items = this.#items.filter((product) => !(product === removeProduct));
+  }
+}
+
+// const storage = new Storage(["Nanitoids", "Prolonger", "Antigravitator"]);
+// console.log(storage.getItems()); // ["Nanitoids","Prolonger", "Antigravitator"]
+// storage.addItem("Droid");
+// console.log(storage.getItems()); // ["Nanitoids","Prolonger", "Antigravitator", "Droid"]
+// storage.removeItem("Prolonger");
+// console.log(storage.getItems()); // ["Nanitoids","Antigravitator", "Droid"]
+// storage.removeItem("Scaner");
+// console.log(storage.getItems()); // ["Nanitoids","Antigravitator", "Droid"]
+
+// --------------------------------------------------------------------------------------------
+
+// 3 - Задача
+// Напиши класс StringBuilder, который принимает один параметр initialValue
+// — произвольную строку, которая записывается в приватное свойство value
+// создаваемого объекта.
+// Объяви следующие методы класса:
+// ● getValue() — возвращает текущее значение приватного свойства value.
+// ● padEnd(str) — получает параметр str (строка) и добавляет его в конец
+// значения приватного свойства value объекта, который вызывает этот
+// метод.
+// ● padStart(str) — получает параметр str (строка) и добавляет его в
+// начало значения приватного свойства value объекта, который
+// вызывает этот метод.
+// ● padBoth(str) — получает параметр str (строка) и добавляет его в
+// начало и в конец значения приватного свойства value объекта, который
+// вызывает этот метод.
+// Возьми код ниже с инициализацией экземпляра и вызовами методов и вставь
+// его после объявления класса для проверки корректности работы. В консоль
+// будут выведены результаты их работы. Пожалуйста, ничего там не меняй.
+
+class StringBuilder {
+  #value;
+  constructor(initialValue) {
+    this.#value = String(initialValue);
+  }
+
+  getValue() {
+    return this.#value;
+  }
+  padEnd(str) {
+    this.#value = this.#value + str;
+  }
+  padStart(str) {
+    this.#value = str + this.#value;
+  }
+  padBoth(str) {
+    this.#value = str + this.#value + str;
+  }
+}
+
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // "."
+builder.padStart("^");
+console.log(builder.getValue()); // "^."
+builder.padEnd("^");
+console.log(builder.getValue()); // "^.^"
+builder.padBoth("=");
+console.log(builder.getValue()); // "=^.^=
